@@ -129,7 +129,18 @@ export default class Tree {
       return;
     }
 
-    if (parent.left === current) {
+    if (parent === null) {
+      if (current.hasChildren()) {
+        let onlyChild = current.theOnlyChild();
+        if (onlyChild) {
+          this.root = onlyChild;
+        } else {
+          this.root.data = this.#deleteSuccessor(current.right);
+        }
+      } else {
+        this.root = null;
+      }
+    } else if (parent.left === current) {
       if (current.hasChildren()) {
         let onlyChild = current.theOnlyChild();
         if (onlyChild) {
@@ -161,7 +172,7 @@ export default class Tree {
       node = node.left;
     }
     let data = node.data;
-    parent.left = null;
+    this.deleteItem(data);
     return data;
   }
 

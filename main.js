@@ -19,7 +19,7 @@ bst.prettyPrint();
 console.log("Is balanced: " + bst.isBalanced());
 
 console.log("\n--- Level Order ---");
-bst.leverOrderForEach((x) => {
+bst.levelOrderForEach((x) => {
   console.log(x);
 });
 
@@ -52,7 +52,7 @@ bst.rebalance();
 console.log("Is balanced: " + bst.isBalanced());
 
 console.log("\n--- Level Order (After Rebalance) ---");
-bst.leverOrderForEach((x) => {
+bst.levelOrderForEach((x) => {
   console.log(x);
 });
 

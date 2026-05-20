@@ -29,16 +29,15 @@ class Node {
 
 export default class Tree {
   constructor(arr) {
-    this.root = this.#buildTree(this.#dedupeAndSort(arr));
-    this.size = 0;
+    let cleanedArray = this.#dedupeAndSort(arr);
+    this.root = this.#buildTree(cleanedArray);
+    this.size = cleanedArray.length;
   }
 
   #buildTree(arr) {
     if (arr.length === 0) {
       return null;
     }
-
-    this.size = arr.length;
 
     if (arr.length === 1) {
       return new Node(arr[0]);
@@ -107,6 +106,7 @@ export default class Tree {
 
     if (this.root.data === value && this.size === 1) {
       this.root = null;
+      this.size--;
       return;
     }
 
@@ -114,7 +114,6 @@ export default class Tree {
     let current = this.root;
     while (current) {
       if (current.data === value) {
-        this.size--;
         break;
       } else if (current.data > value) {
         parent = current;
@@ -127,6 +126,10 @@ export default class Tree {
 
     if (!current) {
       return;
+    }
+
+    if (!current.hasBothChildren()) {
+      this.size--;
     }
 
     if (parent === null) {
@@ -176,7 +179,7 @@ export default class Tree {
     return data;
   }
 
-  leverOrderForEach(callback) {
+  levelOrderForEach(callback) {
     if (typeof callback !== "function") {
       throw new Error("Callback should be a function");
     }
